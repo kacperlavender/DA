@@ -91,3 +91,46 @@ If you specify a sequence of columns, the DataFrame’s columns will be arranged
 `pd.DataFrame(data, columns=["year", "state", "pop"])`
 
 Rows can also be retrieved by position or name with the special iloc and loc attributes.
+
+
+### Index objects
+pandas's Index objects are responsible for holding the axis tables (including a DataFrame's column names) and other metadata (like the axis name or names). Any array or other sequence of labels you use when constructing a Series or DataFrame is Internally converted to an Index.
+
+Immutability makes it safer to share Index objects among data structures.
+
+| Method/Property  | Description                                                                               |
+| ---------------- | ----------------------------------------------------------------------------------------- |
+| `append()`       | Concatenate with additional Index objects, producing a new Index                          |
+| `difference()`   | Compute set difference as an Index                                                        |
+| `intersection()` | Compute set intersection                                                                  |
+| `union()`        | Compute set union                                                                         |
+| `isin()`         | Compute Boolean array indicating whether each value is contained in the passed collection |
+| `delete()`       | Compute new Index with element at Index i deleted                                         |
+| `drop()`         | Compute new Index by deleting passed values                                               |
+| `insert()`       | Compute new Index by inserting element at Index i                                         |
+| `is_monotonic`   | Returns True if each element is greater than or equal to the previous element             |
+| `is_unique`      | Returns True if the Index has no duplicate values                                         |
+| `unique()`       | Compute the array of unique values in the Index                                           |
+
+
+### Essential funcionality
+
+##### Reindexing
+An important method on pandas objects is reindex, which means to create a new object with the values rearranged to align with the new index.
+
+| Argument      | Description                                                                                                                                                  |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `labels`      | New sequence to use as an index. Can be Index instance or any other sequence-like Python data structure. An Index will be used exactly as is without any copying. |
+| `index`       | Use the passed sequence as the new index labels.                                                                                                              |
+| `columns`     | Use the passed sequence as the new column labels.                                                                                                            |
+| `axis`        | The axis to reindex, whether "index" (rows) or "columns". The default is "index". You can alternately do `reindex(index=new_labels)` or `reindex(columns=new_labels)`. |
+| `method`      | Interpolation (fill) method; "ffill" fills forward, while "bfill" fills backward.                                                                            |
+| `fill_value`  | Substitute value to use when introducing missing data by reindexing. Use `fill_value="missing"` (the default behavior) when you want absent labels to have null values in the result. |
+| `limit`       | When forward filling or backfilling, the maximum size gap (in number of elements) to fill.                                                                  |
+| `tolerance`   | When forward filling or backfilling, the maximum size gap (in absolute numeric distance) to fill for inexact matches.                                       |
+| `level`       | Match simple Index on level of MultiIndex; otherwise select subset of.                                                                                      |
+| `copy`        | If True, always copy underlying data even if the new index is equivalent to the old index; if False, do not copy the data when the indexes are equivalent.   |
+
+
+#### Indexing, Selection, and Filtering
+Series indexing (`obj[...]`) works analogously to NumPy array indexing, except you can use the Series’s index values instead of only integers. 
