@@ -71,7 +71,7 @@ These random numbers are not truly random (rather, pseudorandom) but instead are
 
 ### Expressing Conditional Logic as Array Operations
 The numpy.where function is a vectorized version of the ternary expression x if condition else y. Suppose we had a Boolean array and two arrays of values:
-```
+```python
 In [180]: xarr = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
 
 In [181]: yarr = np.array([2.1, 2.2, 2.3, 2.4, 2.5])
@@ -80,7 +80,7 @@ In [182]: cond = np.array([True, False, True, True, False])
 ```
 
 Suppose we wanted to take a value from xarr whenever the corresponding value in cond is True, and otherwise take the value from yarr. A list comprehension doing this might look like:
-```
+```python
 In [183]: result = [(x if c else y)
 .....: for x, y, c in zip(xarr, yarr, cond)]
 
@@ -88,7 +88,7 @@ In [184]: result
 Out[184]: [1.1, 2.2, 1.3, 1.4, 2.5]
 ```
 This has multiple problems. First, it will not be very fast for large arrays (because all the work is being done in interpreted Python code). Second, it will not work with multidimensional arrays. With numpy.where you can do this with a single function call:
-```
+```python
 In [185]: result = np.where(cond, xarr, yarr)
 
 In [186]: result
@@ -98,7 +98,7 @@ Out[186]: array([1.1, 2.2, 1.3, 1.4, 2.5])
 
 
 A typical use of where in data analysis is to produce a new array of values based on another array. Suppose you had a matrix of randomly generated data and you wanted to replace all positive values with 2 and all negative values with -2. This is possible to do with numpy.where:
-```
+```python
 In [187]: arr = rng.standard_normal((4, 4))
 
 In [188]: arr
@@ -125,7 +125,7 @@ array([[ 2,  2,  2,  2],
 
 #### Mathematical and Statistical Model
 A set of mathematical functions that compute statistics about an entire array or about the data along an axis are accessible as methods of the array class. You can use aggregations (sometimes called reductions) like sum, mean, and std (standard deviation) either by calling the array instance method or using the top-level NumPy function. For example:
-```
+```python
 In [192]: arr = rng.standard_normal((5, 4))
 
 In [193]: arr

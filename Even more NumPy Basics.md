@@ -24,7 +24,3 @@ Out[209]: True
 In [210]: bools.all()
 Out[210]: False
 ```
-
-
-
-### Sorting
