@@ -2,7 +2,7 @@
 ##### Tuple 
 A *tuple* is a fixed-length, immutable sequence od Python objects which, once assigned, cannot be changed.
 
-```
+```python
 In [32]: seq = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
 In [33]: for a, b, c in seq:
 ....: print(f'a={a}, b={b}, c={c}')
@@ -11,7 +11,7 @@ a=4, b=5, c=6
 a=7, b=8, c=9
 ```
 
-```
+```python
 In [34]: values = 1, 2, 3, 4, 5
 In [35]: a, b, *rest = values
 In [36]: a
@@ -28,14 +28,14 @@ In contrast with tuples, lists are variable length and their contents can be mod
 
 ###### Adding and removing elements
 Elements can be appended to the end of the list with the append method:
-```
+```python
 In [51]: b_list.append("dwarf")
 In [52]: b_list
 Out[52]: ['foo', 'peekaboo', 'baz', 'dwarf']
 ```
 
 Using insert you can insert an element at a specific location in the list:
-```
+```python
 In [53]: b_list.insert(1, "red")
 In [54]: b_list
 Out[54]: ['foo', 'red', 'peekaboo', 'baz', 'dwarf']
@@ -45,7 +45,7 @@ The insertion index must be between 0 and the length of the list, inclusive.
 
 ###### Sorting
 You can sort a list in place (without creating a new object) by calling its function:
-```
+```python
 In [67]: a = [7, 2, 5, 1, 3]
 In [68]: a.sort()
 In [69]: a
@@ -53,7 +53,7 @@ Out[69]: [1, 2, 3, 5, 7]
 ```
 
 Sorting by `len`
-```
+```python
 In [70]: b = ["saw", "small", "He", "foxes", "six"]
 In [71]: b.sort(key=len)
 In [72]: b
@@ -63,7 +63,7 @@ Out[72]: ['He', 'saw', 'six', 'small', 'foxes']
 
 ##### Dictionary
 A dictionary stores a collection of key-value pairs, where key and value are Python objects. Each key is associated with a value so that a value can be conveniently retrieved, inserted, modified, or deleted given a particular key.
-```
+```python
 In [83]: empty_dict = {}
 In [84]: d1 = {"a": "some value", "b": [1, 2, 3, 4]}
 In [85]: d1
@@ -76,7 +76,7 @@ The keys and values method gives you iterators of the dictionary’s keys and va
 
 
 With setting values, it may be that the values in a dictionary are another kind of collection, like a list. For example, you could imagine categorizing a list of words by their first letters as a dictionary of lists:
-```
+```python
 words = ['apple', 'bat', 'bar', 'atom', 'book']
 by_letter = {}
 
@@ -119,14 +119,14 @@ A `set` is an unordered collection of unique elements.
 #### enumerate
 It’s common when iterating over a sequence to want to keep track of the index of the current item.
 Instead of:
-```
+```python
 index = 0
 for value in collection:
 # do something with value
 index += 1
 ```
 You can do:
-```
+```python
 for index, value in enumerate(collection):
 # do something with value
 ```
@@ -134,7 +134,7 @@ for index, value in enumerate(collection):
 
 ##### sorted
 The sorted function returns a new sorted list from the elements of any sequence:
-```
+```python
 In [145]: sorted([7, 1, 2, 6, 0, 3, 2])
 Out[145]: [0, 1, 2, 2, 3, 6, 7]
 
@@ -146,7 +146,7 @@ Out[146]: [' ', 'a', 'c', 'e', 'e', 'h', 'o', 'r', 'r', 's']
 #### List, Set, and Dictionary Comprehensions
 `[expr for value in collection if condition]`
 is equivalent to:
-```
+```python
 result = []
 for value in collection:
 	if condition:
@@ -160,7 +160,7 @@ dict_comp = {key-expr: value-expr for value in collection if condition}
 
 
 As a simple dictionary comprehension example, we could create a lookup map of these strings for their locations in the list:
-```
+```python
 In [160]: loc_mapping = {value: index for index, value in enumerate(strings)}
 
 In [161]: loc_mapping
@@ -181,7 +181,7 @@ Out[161]: {'a': 0, 'as': 1, 'bat': 2, 'car': 3, 'dove': 4, 'python': 5}
 | `b`  | Add to mode for binary files (e.g., `"rb"` or `"wb"`)                                               |
 | `t`  | Text mode for files (automatically decoding bytes to Unicode); this is the default if not specified |
 
-```
+```python
 In [235]: lines = [x.rstrip() for x in open(path, encoding="utf-8")]
 
 In [236]: lines

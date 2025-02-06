@@ -1,7 +1,7 @@
 #### Psuedorandom Number Generation
 
 The numpy.random module supplements the built-in Python random module with functions for efficiently generating whole arrays of sample values from many kinds of probability distributions. For example, you can get a 4 × 4 array of samples from the standard normal distribution using numpy.random.standard_normal:
-```
+```python
 In [141]: samples = np.random.standard_normal(size=(4, 4))
 
 In [142]: samples

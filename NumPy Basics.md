@@ -10,7 +10,7 @@ One of the key features of NumPy is its N-dimensional array object, or ndarray, 
 
 #### Creating ndarrays
 The easiest way to create an array is to use the array function. This accepts any sequence-like object (including other arrays) and produces a new NumPy array containing the passed data. For example:
-```
+```python
 In [19]: data1 = [6, 7.5, 8, 0, 1]
 
 In [20]: arr1 = np.array(data1)
@@ -19,7 +19,7 @@ In [21]: arr1
 Out[21]: array([6. , 7.5, 8. , 0. , 1. ])
 ```
  or two dimensional: 
-```
+```python
 In [22]: data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
 
 In [23]: arr2 = np.array(data2)
@@ -32,7 +32,7 @@ array([[1, 2, 3, 4],
 
 
 `numpy.arange` is an array-valued version of the built-in Python range function:
-```
+```python
 In [32]: np.arange(15)
 Out[32]: array([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
 ```
@@ -56,7 +56,7 @@ Arrays are important because they enable you to express batch operations on data
 
 #### Basic Indexing and Slicing
 NumPy array indexing is a deep topic, as there are many ways you may want to select a subset of your data or individual elements. One-dimensional arrays are simple; on the surface they act similarly to Python lists:
-```
+```python
 In [61]: arr = np.arange(10)
 
 In [62]: arr
@@ -72,14 +72,14 @@ Out[64]: array([5, 6, 7])
 With higher dimensional arrays, you have many more options. In a two-dimensional
 array, the elements at each index are no longer scalars but rather one-dimensional
 arrays:
-```
+```python
 In [73]: arr2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
 In [74]: arr2d[2]
 Out[74]: array([7, 8, 9])
 ```
 Thus, individual elements can be accessed recursively:
-```
+```python
 In [75]: arr2d[0][2]
 Out[75]: 3
 
@@ -90,7 +90,7 @@ Out[76]: 3
 
 ### Transposing Arrays and Swapping Axes
 Transposing is a special form of reshaping that similarly returns a view on the underlying data without copying anything. Arrays have the transpose method and the special T attribute:
-```
+```python
 In [132]: arr = np.arange(15).reshape((3, 5))
 
 In [133]: arr
@@ -108,7 +108,7 @@ array([[ 0, 5, 10],
 [ 4, 9, 14]])
 ```
 
-```
+```python
 arr = np.array([[0, 1, 0], [1, 2, -2], [6, 3, 2], [-1, 0, -1], [1, 0, 1]])
 
 np.dot(arr.T, arr) # multiplation of arr^T and arr
