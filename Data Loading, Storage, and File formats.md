@@ -136,3 +136,58 @@ In [35]: for line in reader:
 In [36]: f.close()
 ```
 
+#### CSV dialect options
+| Argument           | Description                                                                                                                                                                                                                                   |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `delimiter`        | One-character string to separate fields; defaults to `","`.                                                                                                                                                                                   |
+| `lineterminator`   | Line terminator for writing; defaults to `"\r\n"`. Reader ignores this and recognizes cross-platform line terminators.                                                                                                                        |
+| `quotechar`        | Quote character for fields with special characters (like a delimiter); default is `"'"`.                                                                                                                                                      |
+| `quoting`          | Quoting convention. Options include `csv.QUOTE_ALL` (quote all fields), `csv.QUOTE_MINIMAL` (only fields with special characters like the delimiter), `csv.QUOTE_NONNUMERIC`, and `csv.QUOTE_NONE` (no quoting). Defaults to `QUOTE_MINIMAL`. |
+| `skipinitialspace` | Ignore whitespace after each delimiter; default is `False`.                                                                                                                                                                                   |
+| `doublequote`      | How to handle quoting character inside a field; if `True`, it is doubled (see online documentation for full detail and behavior).                                                                                                             |
+| `escapechar`       | String to escape the delimiter if quoting is set to `csv.QUOTE_NONE`; disabled by default.                                                                                                                                                    |
+
+### Filling In Missing Data
+Rather than filtering out missing data (and potentially discarding other data along with it), you may want to fill in the “holes” in any number of ways. For most purposes, the fillna method is the workhorse function to use. Calling fillna with a constant replaces missing values with that value:
+```python
+In [37]: df = pd.DataFrame(np.random.standard_normal((7, 3)))
+
+In [38]: df.fillna(0)
+Out[38]:
+          0         1         2
+0 -0.935806 -0.048369 -1.284787
+1  0.448303 -1.069325  0.812073
+2  0.082863 -0.141884 -0.023553
+3 -1.201179  0.591698 -0.567232
+4 -0.240314 -0.133325  0.124686
+5 -0.558235  1.269327  1.304039
+6 -1.148401 -0.340334  1.299756
+```
+
+Calling `fillna` with a dictionary, you can use a different fill value for each column:
+```python
+In [39]: df.fillna({1: 0.5, 2: 0})
+Out[39]:
+          0         1         2
+0 -0.935806 -0.048369 -1.284787
+1  0.448303 -1.069325  0.812073
+2  0.082863 -0.141884 -0.023553
+3 -1.201179  0.591698 -0.567232
+4 -0.240314 -0.133325  0.124686
+5 -0.558235  1.269327  1.304039
+6 -1.148401 -0.340334  1.299756
+```
+
+With fillna you can do lots of other things such as simple data imputation using the median or mean statistics:
+```python
+In [45]: data = pd.Series([1., np.nan, 3.5, np.nan, 7])
+
+In [46]: data.fillna(data.mean())
+Out[46]:
+0    1.000000
+1    3.833333
+2    3.500000
+3    3.833333
+4    7.000000
+dtype: float64
+```
