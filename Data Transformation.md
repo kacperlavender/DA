@@ -189,3 +189,99 @@ Out[102]:
 3  27  22  23  21  24  26  25
 4  34  29  30  28  31  33  32
 ```
+
+
+### Computing Indicator/Dummy Variables
+Another type of transformation for statistical modeling or machine learning applications is converting a categorical variable into a dummy or indicator matrix. If a column in a DataFrame has k distinct values, you would derive a matrix or DataFrame with k columns containing all 1s and 0s. pandas has a pandas.get_dummies function for doing this, though you could also devise one yourself. Let’s consider an example DataFrame:
+```python
+In [17]: df = pd.DataFrame({"key": ["b", "b", "a", "c", "a", "b"],
+    ...: .....: "data1": range(6)})
+
+In [18]: df
+Out[18]:
+  key  data1
+0   b      0
+1   b      1
+2   a      2
+3   c      3
+4   a      4
+5   b      5
+
+In [19]: pd.get_dummies(df["key"])
+Out[19]:
+       a      b      c
+0  False   True  False
+1  False   True  False
+2   True  False  False
+3  False  False   True
+4   True  False  False
+5  False   True  False
+```
+In some cases, you may want to add a prefix to the columns in the indicator Data‐Frame, which can then be merged with the other data. pandas.get_dummies has a prefix argument for doing this:
+```python
+In [20]: dummies = pd.get_dummies(df["key"], prefix="key")
+
+In [21]: df_with_dummy = df[["data1"]].join(dummies)
+
+In [22]: df_with_dummy
+Out[22]:
+   data1  key_a  key_b  key_c
+0      0  False   True  False
+1      1  False   True  False
+2      2   True  False  False
+3      3  False  False   True
+4      4   True  False  False
+5      5  False   True  False
+```
+
+If a row in a DataFrame belongs to multiple categories, we have to use a different approach to create the dummy variables. Let’s look at the MovieLens 1M dataset:
+```python
+In [23]: mnames = ["movie_id", "title", "genres"]
+
+In [24]: movies = pd.read_table("datasets/movielens/movies.dat", sep="::",
+    ...: .....: header=None, names=mnames, engine="python")
+
+In [25]: movies[:10]
+Out[26]:
+   movie_id                               title                        genres
+0         1                    Toy Story (1995)   Animation|Children's|Comedy
+1         2                      Jumanji (1995)  Adventure|Children's|Fantasy
+2         3             Grumpier Old Men (1995)                Comedy|Romance
+3         4            Waiting to Exhale (1995)                  Comedy|Drama
+4         5  Father of the Bride Part II (1995)                        Comedy
+5         6                         Heat (1995)         Action|Crime|Thriller
+6         7                      Sabrina (1995)                Comedy|Romance
+7         8                 Tom and Huck (1995)          Adventure|Children's
+8         9                 Sudden Death (1995)                        Action
+9        10                    GoldenEye (1995)     Action|Adventure|Thriller
+```
+
+
+
+A useful recipe for statistical applications is to combine pandas.get_dummies with a discretization function like pandas.cut:
+```python
+In [28]: np.random.seed(12345)
+
+In [29]: values = np.random.uniform(size=10)
+
+In [30]: values
+Out[30]:
+array([0.92961609, 0.31637555, 0.18391881, 0.20456028, 0.56772503,
+       0.5955447 , 0.96451452, 0.6531771 , 0.74890664, 0.65356987])
+
+In [31]: bins = [0, 0.2, 0.4, 0.6, 0.8, 1]
+
+In [32]: pd.get_dummies(pd.cut(values, bins))
+Out[32]:
+   (0.0, 0.2]  (0.2, 0.4]  (0.4, 0.6]  (0.6, 0.8]  (0.8, 1.0]
+0       False       False       False       False        True
+1       False        True       False       False       False
+2        True       False       False       False       False
+3       False        True       False       False       False
+4       False       False        True       False       False
+5       False       False        True       False       False
+6       False       False       False       False        True
+7       False       False       False        True       False
+8       False       False       False        True       False
+9       False       False       False        True       False
+```
