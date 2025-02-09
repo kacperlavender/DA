@@ -164,3 +164,72 @@ In [45]: ax.set_title("Important dates in the 2008-2009 financial crisis")
 Out[45]: Text(0.5, 1.0, 'Important dates in the 2008-2009 financial crisis')
 ```
 ![[Pasted image 20250209231908.png]]
+
+
+you can also draw shapes:
+```python
+In [47]: fig, ax = plt.subplots()
+
+In [48]: rect = plt.Rectangle((0.2, 0.75), 0.4, 0.15, color="black", alpha=0.3)
+
+In [49]: circ = plt.Circle((0.7, 0.2), 0.15, color="blue", alpha=0.3)
+
+In [50]: pgon = plt.Polygon([[0.15, 0.15], [0.35, 0.4], [0.2, 0.6]], color="green", alpha=0.5)
+
+In [51]: ax.add_patch(rect)
+Out[51]: <matplotlib.patches.Rectangle at 0x292099ac790>
+
+In [52]: ax.add_patch(circ)
+Out[52]: <matplotlib.patches.Circle at 0x292092d3bb0>
+
+In [53]: ax.add_patch(pgon)
+Out[53]: <matplotlib.patches.Polygon at 0x292059e4a00>
+```
+![[Pasted image 20250209233754.png]]
+
+
+### Series.plot method arguments
+
+| Parameter   | Description                                                                                                      |
+| ----------- | ---------------------------------------------------------------------------------------------------------------- |
+| `label`     | Label for plot legend                                                                                            |
+| `ax`        | Matplotlib subplot object to plot on; if nothing passed, uses active subplot                                     |
+| `style`     | Style string, like "ko--", to be passed to matplotlib                                                            |
+| `alpha`     | The plot fill opacity (from 0 to 1)                                                                              |
+| `kind`      | Can be "area", "bar", "barh", "density", "hist", "kde", "line", or "pie"; defaults to "line"                     |
+| `figsize`   | Size of the figure object to create                                                                              |
+| `logx`      | Pass True for logarithmic scaling on the x axis; pass "sym" for symmetric logarithm that permits negative values |
+| `logy`      | Pass True for logarithmic scaling on the y axis; pass "sym" for symmetric logarithm that permits negative values |
+| `title`     | Title to use for the plot                                                                                        |
+| `use_index` | Use the object index for tick labels                                                                             |
+| `rot`       | Rotation of tick labels (0 through 360)                                                                          |
+| `xticks`    | Values to use for x-axis ticks                                                                                   |
+| `yticks`    | Values to use for y-axis ticks                                                                                   |
+| `xlim`      | x-axis limits (e.g., [0, 10])                                                                                    |
+| `ylim`      | y-axis limits                                                                                                    |
+| `grid`      | Display axis grid (off by default)                                                                               |
+
+
+
+### DataFrame-specific plot arguments
+| Parameter      | Description                                                               |
+| -------------- | ------------------------------------------------------------------------- |
+| `subplots`     | Plot each DataFrame column in a separate subplot                          |
+| `layouts`      | 2-tuple (rows, columns) providing layout of subplots                      |
+| `sharex`       | If subplots=True, share the same x-axis, linking ticks and limits         |
+| `sharey`       | If subplots=True, share the same y-axis                                   |
+| `legend`       | Add a subplot legend (True by default)                                    |
+| `sort_columns` | Plot columns in alphabetical order; by default uses existing column order |
+
+
+### Bar plots
+```python
+In [11]: data.plot.bar(ax=axes[0], color="black", alpha=0.7)
+Out[11]: <Axes: >
+
+In [12]: data.plot.barh(ax=axes[1], color="black", alpha=0.7)
+Out[12]: <Axes: >
+```
+
+![[Pasted image 20250209234947.png]]
+
